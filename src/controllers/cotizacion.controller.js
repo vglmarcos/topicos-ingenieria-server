@@ -60,7 +60,8 @@ CotizacionController.editarCotizacion = async (req, res) => {
         estado
     });
     res.json({
-        res: "Cotizacion editada con exito."
+        res: "Cotizacion editada con exito.",
+        id: id
     });
 }
 
