@@ -13,9 +13,15 @@ ProductoController.agregarProducto = async (req, res) => {
         tipo,
         precio
     } = req.body;
-    const nuevaID = await Producto.countDocuments();
+    const productos = await Producto.find({});
+    let mayor = 0;
+    for(let i = 0; i < productos.length; i++) {
+        if(mayor < productos[i].id) {
+            mayor = productos[i].id;
+        }
+    }
     const nuevoProducto = new Producto({
-        id: nuevaID + 1,
+        id: mayor + 1,
         nombre,
         tipo,
         precio
