@@ -1,4 +1,7 @@
 const Venta = require('../models/Venta');
+const Cotizacion = require('../models/Cotizacion');
+const Lamina = require('../models/Lamina');
+const Producto = require('../models/Producto');
 
 const VentaController = {};
 
@@ -39,6 +42,14 @@ VentaController.editarVenta = async (req, res) => {
     res.json({
         res: "Venta editada con exito."
     });
+    if(estado === "Cancelada") {
+        let cotizacion = await Cotizacion.findOne({id: id_cotizacion});
+        for(let i = 0; i < cotizacion.carrito.length; i++) {
+            let producto = await Producto.findOne({id: cotizacion.carrito[i].id_producto});
+            let lamina = await Lamina.findOne({nombre: producto.tipo});
+            await Lamina.findOneAndUpdate({nombre: producto.tipo}, {$set: { cantidad: lamina.cantidad + cotizacion.carrito[i].cantidad }});
+        }
+    }
 }
 
 VentaController.eliminarVenta = async (req, res) => {
