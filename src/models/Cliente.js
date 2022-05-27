@@ -18,8 +18,26 @@ const ClienteSchema = new Schema({
         required: true
     },
     direccion: {
-        type: String,
-        required: true
+        calle: {
+            type: String,
+            required: true
+        },
+        numero: {
+            type: String,
+            required: true
+        },
+        colonia: {
+            type: String,
+            required: true
+        },
+        cod_postal: {
+            type: String,
+            required: true
+        },
+        ciudad: {
+            type: String,
+            required: true
+        }
     }
 }, {
     timestamps: true,
